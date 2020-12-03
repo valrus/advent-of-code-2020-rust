@@ -1,5 +1,6 @@
 use std::env;
 use std::fs;
+use utils;
 
 fn print_pairs(numbers: &Vec<i32>) {
     for (i, number1) in numbers.iter().enumerate() {
@@ -31,10 +32,7 @@ fn main() {
     let filename = &args[1];
 
     let contents = fs::read_to_string(filename).expect("Couldn't read the file");
-    let numbers: Vec<i32> = contents
-        .split('\n')
-        .map(|s| s.trim())
-        .filter(|s| !s.is_empty())
+    let numbers: Vec<i32> = utils::split_lines(&contents)
         .map(|s| i32::from_str_radix(s, 10))
         .map(|result| result.expect("Not a number"))
         .collect();
